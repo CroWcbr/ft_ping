@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 17:37:24 by cdarrell          #+#    #+#             */
-/*   Updated: 2022/06/20 16:43:38 by cdarrell         ###   ########.fr       */
+/*   Updated: 2022/06/21 19:01:40 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	sig_alrm(int signo)
 {
+	(void)signo;
 	gettimeofday(&g_ping.time_end, NULL);
 	send_v4();
 	alarm(1);
@@ -21,6 +22,7 @@ void	sig_alrm(int signo)
 
 void	sigint_handler(int signo)
 {
+	(void)signo;
 	tv_sub(&g_ping.time_end, &g_ping.time_start);
 	printf("\n");
 	if (g_ping.count_send > 0 || g_ping.count_recv > 0)

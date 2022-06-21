@@ -6,13 +6,13 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:31:10 by cdarrell          #+#    #+#             */
-/*   Updated: 2022/06/20 16:01:41 by cdarrell         ###   ########.fr       */
+/*   Updated: 2022/06/21 19:02:20 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ping.h"
 
-static void	readloop_while(struct msghdr *msg, struct iovec *iov, \
+static void	readloop_while(struct msghdr *msg, \
 						char *recvbuf, char *controlbuf)
 {
 	ssize_t			n;
@@ -48,5 +48,5 @@ void	readloop(void)
 	msg.msg_iov = &iov;
 	msg.msg_iovlen = 1;
 	msg.msg_control = controlbuf;
-	readloop_while(&msg, &iov, recvbuf, controlbuf);
+	readloop_while(&msg, recvbuf, controlbuf);
 }
