@@ -7,7 +7,11 @@ LIBFT_DIR	=	../libft
 LIBFT_LIB	=	libft.a
 
 HEADER		=	ft_ping.h
-SRC			=	ft_ping.c
+SRC			=	ft_ping.c \
+				init_ping.c \
+				ft_exit.c \
+				parse.c \
+				create_socket.c
 
 OBJ_DIR	=	obj
 OBJ 		=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
