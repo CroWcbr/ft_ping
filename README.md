@@ -10,3 +10,6 @@ my own ping
 - add IPv6
 - add flag (-f -m -l -I -m -M -n -w -W -p -Q -S -t -T)
 - without norminette(I think so)
+
+##References
+- W.R. Stevens - UNIX Network Programming Volume 1
