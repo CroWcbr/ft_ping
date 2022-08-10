@@ -32,7 +32,7 @@ void	sigint_handler(int signo)
 %d%% packet loss, time %.0fms\n", \
 				g_ping.count_send, \
 				g_ping.count_recv, \
-				(g_ping.count_send - g_ping.count_recv) / g_ping.count_send, \
+		(g_ping.count_send - g_ping.count_recv) * 100 / g_ping.count_send, \
 				g_ping.time_end.tv_sec * 1000.0 + \
 				g_ping.time_end.tv_usec / 1000.0);
 	if (g_ping.count_recv > 0)
