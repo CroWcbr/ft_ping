@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:50:16 by cdarrell          #+#    #+#             */
-/*   Updated: 2022/06/18 22:00:35 by cdarrell         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:16:06 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	create_socket(void)
 	g_ping.sasend = ai->ai_addr;
 	g_ping.sarecv = ft_calloc(1, ai->ai_addrlen);
 	if (!g_ping.sarecv)
-		ft_exit("ERROR! ft_calloc in check_destination");
+		ft_exit("ERROR! ft_calloc in create_socket");
 	g_ping.salen = ai->ai_addrlen;
 	g_ping.sockfd = socket(ai->ai_family, \
 							ai->ai_socktype, ai->ai_protocol);

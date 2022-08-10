@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 17:37:24 by cdarrell          #+#    #+#             */
-/*   Updated: 2022/06/21 19:01:40 by cdarrell         ###   ########.fr       */
+/*   Updated: 2022/08/09 09:57:22 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int argc, char **argv)
 	signal(SIGINT, sigint_handler);
 	printf("PING %s (%s) %d(%ld) bytes of data.\n", \
 			g_ping.destination, g_ping.destination_ip, g_ping.datalen, \
-			g_ping.datalen + sizeof(struct icmp) + sizeof(struct ip));
+			g_ping.datalen + sizeof(struct icmp));
 	gettimeofday(&g_ping.time_start, NULL);
 	sig_alrm(SIGALRM);
 	readloop();
