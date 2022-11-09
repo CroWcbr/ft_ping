@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:50:16 by cdarrell          #+#    #+#             */
-/*   Updated: 2022/06/24 20:30:52 by cdarrell         ###   ########.fr       */
+/*   Updated: 2022/08/13 23:48:05 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,7 @@ static void	set_setsockopt(void)
 	struct icmp6_filter	myfilt;
 	int					size;
 
-	size = 60 * 1024;
-	if (setsockopt(g_ping.sockfd, SOL_SOCKET, \
-					SO_RCVBUF, &size, sizeof(size)) < 0)
-		ft_exit("ft_ping: setsockopt error: Could not set receive buffer");
-	if (g_ping.ipv6 && g_ping.verbose == 0)
+	if (g_ping.ipv6 && g_ping.verbose == false)
 	{
 		ICMP6_FILTER_SETBLOCKALL(&myfilt);
 		ICMP6_FILTER_SETPASS(ICMP6_ECHO_REPLY, &myfilt);
@@ -57,9 +53,13 @@ static void	set_setsockopt(void)
 	if (g_ping.ipv6 && setsockopt(g_ping.sockfd, IPPROTO_IPV6, \
 				IPV6_RECVHOPLIMIT, &on, sizeof(on)) < 0)
 		ft_exit("ft_ping: setsockopt error: Could not set receive hop limit");
-	if (g_ping.ipv6 && setsockopt(g_ping.sockfd, IPPROTO_IPV6, \
+	else if (g_ping.ipv6 && setsockopt(g_ping.sockfd, IPPROTO_IPV6, \
 				IPV6_UNICAST_HOPS, &on, sizeof(on)) < 0)
 		ft_exit("ft_ping: setsockopt error: Could not set hop limit");
+	size = 60 * 1024;
+	if (setsockopt(g_ping.sockfd, SOL_SOCKET, \
+					SO_RCVBUF, &size, sizeof(size)) < 0)
+		ft_exit("ft_ping: setsockopt error: Could not set receive buffer");
 }
 
 static void	update_init_v4_v6_func(void)

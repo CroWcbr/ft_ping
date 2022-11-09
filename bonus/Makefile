@@ -11,7 +11,14 @@ SRC			=	ft_ping.c \
 				init_ping.c \
 				ft_exit.c \
 				parse.c \
-				create_socket.c
+				parse_options.c \
+				parse_int_param.c \
+				create_socket.c \
+				readloop.c \
+				proc_v4.c \
+				send_v4.c \
+				proc_v6.c \
+				send_v6.c
 
 OBJ_DIR	=	obj
 OBJ 		=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
