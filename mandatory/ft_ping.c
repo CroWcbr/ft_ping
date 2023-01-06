@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 17:37:24 by cdarrell          #+#    #+#             */
-/*   Updated: 2022/08/10 20:44:36 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/01/07 02:52:26 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,19 @@ void	tv_sub(struct timeval *out, struct timeval *in)
 	out->tv_sec -= in->tv_sec;
 }
 
+void	sigint_quit(int signo)
+{
+	(void)signo;
+	printf("\r%d/%d packets, ", \
+		g_ping.count_send, g_ping.count_recv);
+	printf("%d%% loss, ", \
+		(g_ping.count_send - g_ping.count_recv) * 100 / g_ping.count_send);
+	printf ("min/avg/max/mdev = %.3f/%.3f/%.3f/%.3f ms", \
+			g_ping.rtt_min, g_ping.rtt_sum / g_ping.count_recv, \
+			g_ping.rtt_max, g_ping.rtt_msum / g_ping.count_recv);
+	printf("\n");
+}
+
 int	main(int argc, char **argv)
 {
 	(void)argc;
@@ -66,6 +79,7 @@ int	main(int argc, char **argv)
 	create_socket();
 	signal(SIGALRM, sig_alrm);
 	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigint_quit);
 	printf("PING %s (%s) %d(%ld) bytes of data.\n", \
 			g_ping.destination, g_ping.destination_ip, g_ping.datalen, \
 			g_ping.datalen + sizeof(struct icmp));

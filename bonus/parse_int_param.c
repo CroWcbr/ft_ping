@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 22:14:48 by cdarrell          #+#    #+#             */
-/*   Updated: 2022/08/12 23:36:38 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/01/07 02:22:05 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	ft_exit_parse_add_param(char flag, char *str_err)
 {
+	(void)flag;
 	printf("ping: invalid argument: '%s'\n", str_err);
 	exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 21:43:26 by cdarrell          #+#    #+#             */
-/*   Updated: 2022/08/19 23:29:06 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/01/07 02:22:38 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ void	proc_v6(char *ptr, \
 				struct timeval *tvrecv)
 {
 	struct icmp6_hdr	*icmp6;
-	struct cmsghdr		*cmsg;
 
 	icmp6 = (struct icmp6_hdr *) ptr;
 	if (len < 8 || icmp6->icmp6_type == ICMP6_ECHO_REQUEST)
