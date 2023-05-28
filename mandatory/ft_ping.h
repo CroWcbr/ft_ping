@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:09:58 by cdarrell          #+#    #+#             */
-/*   Updated: 2022/08/09 21:21:40 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/05/28 02:01:39 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_ping
 	double				rtt_msum;
 }t_ping;
 
-t_ping	g_ping;
+extern t_ping	g_ping;
 
 void			ft_exit(char *str_err);
 void			ft_exit_add_info(char *str_info, \

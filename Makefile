@@ -21,12 +21,12 @@ OK			=	$(C_OK)OK$(C_NO)
 all:	
 		@make -C ${LIBFT_DIR}/ all
 		@make -C ${MAND_DIR}/ all
-		@cp ${MAND_DIR}/${NAME} ${NAME} 
+		cp ${MAND_DIR}/${NAME} ${NAME} 
 
 bonus:	
 		@make -C ${LIBFT_DIR}/ all
 		@make -C ${BON_DIR}/ all
-		@cp ${BON_DIR}/${NAME} ${NAME}
+		cp ${BON_DIR}/${NAME} ${NAME}
 
 clean:
 		@make -C ${LIBFT_DIR}/ clean

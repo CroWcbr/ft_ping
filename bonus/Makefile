@@ -29,7 +29,7 @@ RM_FILE		=	rm -f
 INCLUDES	= 	-I .
 
 ${NAME}:	${OBJ}
-			@$(CC) -o $(NAME) $(OBJ) $(FLAGS) ${LIBFT_DIR}/${LIBFT_LIB}
+			$(CC) -o $(NAME) $(OBJ) $(FLAGS) ${LIBFT_DIR}/${LIBFT_LIB}
 			@echo "\tCompiling...\t" [ $(NAME) ] $(SUCCESS)
 									
 $(OBJ)		:	| $(OBJ_DIR)

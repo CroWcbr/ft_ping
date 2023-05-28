@@ -6,11 +6,13 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 17:37:24 by cdarrell          #+#    #+#             */
-/*   Updated: 2023/01/07 02:53:20 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/05/28 02:05:35 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ping.h"
+
+t_ping		g_ping;
 
 void	sigint_handler(int signo)
 {
