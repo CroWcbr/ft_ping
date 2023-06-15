@@ -27,3 +27,11 @@ my own ping
 
 ## ICMP-Header:
 All ICMP packets have an 8-byte header and variable-sized data section. The first 4 bytes of the header have fixed format, while the last 4 bytes depend on the type/code of that ICMP packe
+
+## Docker (for check without root access)
+- docker build -t docker_for_ping .
+- docker run -it -v "$(pwd):/workspace" docker_for_ping
+- connect using vs code
+- exit
+- docker rm $(docker ps -aq)
+- docker rmi $(docker images -aq)
