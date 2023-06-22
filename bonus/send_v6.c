@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 21:43:17 by cdarrell          #+#    #+#             */
-/*   Updated: 2022/08/19 23:23:49 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:23:03 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void	send_v6(void)
 	len = 8 + g_ping.datalen;
 	if (sendto(g_ping.sockfd, sendbuf, len, \
 			0, g_ping.sasend, g_ping.salen) != (ssize_t)len)
-		ft_exit("ft_ping: sendto: could not send packet");
+	{
+		printf("ft_ping: sendmsg: %s\n", strerror(errno));
+		if (errno == 101)
+			exit(1);
+	}
 	g_ping.count_send++;
 }

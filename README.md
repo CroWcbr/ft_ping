@@ -30,8 +30,12 @@ All ICMP packets have an 8-byte header and variable-sized data section. The firs
 
 ## Docker (for check without root access)
 - docker build -t docker_for_ping .
-- docker run -it -v "$(pwd):/workspace" docker_for_ping
+- docker run --user=root -it -v "$(pwd):/workspace" docker_for_ping
 - connect using vs code
 - exit
 - docker rm $(docker ps -aq)
 - docker rmi $(docker images -aq)
+
+## Test
+- blocks outgoing ICMP packets : sudo iptables -A OUTPUT -p icmp -j DROP
+- allow sending ICMP packets   : sudo iptables -D OUTPUT -p icmp -j DROP

@@ -5,6 +5,7 @@ LIBFT_LIB	=	libft.a
 
 MAND_DIR	=	mandatory
 BON_DIR		=	bonus
+MAND_DIR_V2	=	mandatory_v2
 
 RM_DIR		=	rm -rf
 RM_FILE		=	rm -f
@@ -22,6 +23,11 @@ all:
 		@make -C ${LIBFT_DIR}/ all
 		@make -C ${MAND_DIR}/ all
 		cp ${MAND_DIR}/${NAME} ${NAME} 
+
+mand:
+		@make -C ${LIBFT_DIR}/ all
+		@make -C ${MAND_DIR_V2}/ all
+		cp ${MAND_DIR_V2}/${NAME} ${NAME} 	
 
 bonus:	
 		@make -C ${LIBFT_DIR}/ all
@@ -41,5 +47,5 @@ fclean:
 		
 re:		fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all mand bonus clean fclean re
 

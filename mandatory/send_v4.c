@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 17:40:57 by cdarrell          #+#    #+#             */
-/*   Updated: 2022/06/18 22:28:03 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/06/22 23:12:17 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ void	send_v4(void)
 	icmp->icmp_cksum = in_cksum((u_short *)icmp, len);
 	if (sendto(g_ping.sockfd, sendbuf, len, \
 			0, g_ping.sasend, g_ping.salen) != (ssize_t)len)
-		ft_exit("ft_ping: sendto: could not send packet");
+	{
+		printf("ft_ping: sendmsg: %s\n", strerror(errno));
+		if (errno == 101)
+			exit(1);
+	}
 	g_ping.count_send++;
 }
