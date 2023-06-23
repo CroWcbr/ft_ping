@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:50:16 by cdarrell          #+#    #+#             */
-/*   Updated: 2023/06/22 23:54:45 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/06/23 00:28:45 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	create_socket(void)
 {
-	struct sockaddr_in	sa;
 	int					size;
 	char				str[128];
 
