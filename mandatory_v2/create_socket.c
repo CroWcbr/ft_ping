@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:50:16 by cdarrell          #+#    #+#             */
-/*   Updated: 2023/06/23 00:28:45 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:22:43 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	create_socket(void)
 	g_ping.sockfd = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
 	if (g_ping.sockfd < 0)
 		ft_exit("ft_ping: socket error");
+	setuid(getuid());
 	size = 60 * 1024;
 	if (setsockopt(g_ping.sockfd, SOL_SOCKET, \
 					SO_RCVBUF, &size, sizeof(size)) < 0)

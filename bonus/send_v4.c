@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 17:40:57 by cdarrell          #+#    #+#             */
-/*   Updated: 2023/06/22 19:22:55 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/06/23 12:20:14 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	send_v4(void)
 			0, g_ping.sasend, g_ping.salen) != (ssize_t)len)
 	{
 		printf("ft_ping: sendmsg: %s\n", strerror(errno));
-		if (errno == 101)
+		if (errno == 101 || errno == 99)
 			exit(1);
 	}
 	g_ping.count_send++;

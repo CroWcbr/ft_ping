@@ -1,6 +1,6 @@
 NAME		=	ft_ping
 
-CC			=	clang
+CC			=	gcc
 FLAGS		=	-Wall -Wextra -Werror
 
 LIBFT_DIR	=	../libft

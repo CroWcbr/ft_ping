@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:50:16 by cdarrell          #+#    #+#             */
-/*   Updated: 2023/06/22 20:21:58 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:23:00 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void	set_setsockopt(void)
 	else if (g_ping.ipv6 && setsockopt(g_ping.sockfd, IPPROTO_IPV6, \
 				IPV6_UNICAST_HOPS, &on, sizeof(on)) < 0)
 		ft_exit("ft_ping: setsockopt error: Could not set hop limit");
+	setuid(getuid());
 	size = 60 * 1024;
 	if (setsockopt(g_ping.sockfd, SOL_SOCKET, \
 					SO_RCVBUF, &size, sizeof(size)) < 0)
