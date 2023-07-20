@@ -5,24 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 13:31:10 by cdarrell          #+#    #+#             */
-/*   Updated: 2023/06/22 23:44:03 by cdarrell         ###   ########.fr       */
+/*   Created: 2023/07/20 17:35:07 by cdarrell          #+#    #+#             */
+/*   Updated: 2023/07/20 17:55:07 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ping.h"
+#include <stdio.h>
+#include <errno.h>
 
-static void	readloop_while(struct msghdr *msg, \
-						char *recvbuf, size_t len_conbuf)
+void	readloop(void)
 {
-	ssize_t			n;
+	char			recvbuf[1500];
+	char			controlbuf[1500];
+	struct msghdr	msg;
+	struct iovec	iov;
+	size_t			n;
 	struct timeval	tval;
+
+	iov.iov_base = recvbuf;
+	iov.iov_len = sizeof(recvbuf);
+	msg.msg_name = g_ping.sarecv;
+	msg.msg_iov = &iov;
+	msg.msg_iovlen = 1;
+	msg.msg_control = controlbuf;
 
 	while (1)
 	{
-		msg->msg_namelen = g_ping.salen;
-		msg->msg_controllen = len_conbuf;
-		n = recvmsg(g_ping.sockfd, msg, 0);
+		msg.msg_namelen = g_ping.salen;
+		msg.msg_controllen = sizeof(controlbuf);
+		n = recvmsg(g_ping.sockfd, &msg, 0);
 		if (n < 0)
 		{
 			if (errno == EINTR)
@@ -33,20 +45,5 @@ static void	readloop_while(struct msghdr *msg, \
 		gettimeofday(&tval, NULL);
 		proc_v4(recvbuf, n, &tval);
 	}
-}
-
-void	readloop(void)
-{
-	char						recvbuf[BUFSIZE];
-	char						controlbuf[BUFSIZE];
-	struct msghdr				msg;
-	struct iovec				iov;
-
-	iov.iov_base = recvbuf;
-	iov.iov_len = sizeof(recvbuf);
-	msg.msg_name =  &g_ping.addr;
-	msg.msg_iov = &iov;
-	msg.msg_iovlen = 1;
-	msg.msg_control = controlbuf;
-	readloop_while(&msg, recvbuf, sizeof(controlbuf));
+	
 }

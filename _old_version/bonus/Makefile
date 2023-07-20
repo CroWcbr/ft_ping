@@ -3,18 +3,22 @@ NAME		=	ft_ping
 CC			=	gcc
 FLAGS		=	-Wall -Wextra -Werror
 
-LIBFT_DIR	=	../libft
+LIBFT_DIR	=	../../libft
 LIBFT_LIB	=	libft.a
 
 HEADER		=	ft_ping.h
 SRC			=	ft_ping.c \
-				ft_exit.c \
 				init_ping.c \
+				ft_exit.c \
 				parse.c \
+				parse_options.c \
+				parse_int_param.c \
 				create_socket.c \
 				readloop.c \
+				proc_v4.c \
 				send_v4.c \
-				proc_v4.c
+				proc_v6.c \
+				send_v6.c
 
 OBJ_DIR	=	obj
 OBJ 		=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))

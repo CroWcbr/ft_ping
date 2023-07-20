@@ -5,40 +5,40 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 13:09:58 by cdarrell          #+#    #+#             */
-/*   Updated: 2023/05/28 02:01:39 by cdarrell         ###   ########.fr       */
+/*   Created: 2023/07/20 01:49:45 by cdarrell          #+#    #+#             */
+/*   Updated: 2023/07/20 18:30:16 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PING_H
 # define FT_PING_H
 
-# include "../libft/include/libft.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
-# include <signal.h>
-# include <netdb.h>
-# include <netinet/in_systm.h>
-# include <sys/types.h>
-# include <sys/socket.h>
-# include <arpa/inet.h>
-# include <netinet/ip.h>
-# include <netinet/ip_icmp.h>
-# include <time.h>
-# include <sys/time.h>
-# include <error.h>
-# include <errno.h>
+# define DEBUG 1
 
-# define BUFSIZE 1500
+// # include "./libft/include/libft.h"
+
+#include <stdbool.h>	// for bool
+#include <stddef.h>		// for size_t
+#include <sys/types.h>	// for pid_t
+#include <netdb.h>		// for addrinfo
+#include <sys/time.h>	// for timeval
+typedef struct s_flag
+{
+	double	interval;
+	size_t	count;
+	size_t	deadline;
+	size_t	ttl;
+	bool	verbose;
+	bool	timestamps;
+	bool	quiet;
+	bool	no_dns_name;
+}	t_flag;
 
 typedef struct s_ping
 {
 	char				*destination;
-	char				*destination_ip;
-	bool				help;
-	bool				verbose;
+	char				destination_ip[256];
+	char				destination_dns[256];
 	pid_t				pid;
 	int					datalen;
 	struct addrinfo		*ai;
@@ -46,6 +46,7 @@ typedef struct s_ping
 	struct sockaddr		*sarecv;
 	socklen_t			salen;
 	int					sockfd;
+
 	int					count_send;
 	int					count_recv;
 	struct timeval		time_start;
@@ -54,24 +55,20 @@ typedef struct s_ping
 	double				rtt_sum;
 	double				rtt_max;
 	double				rtt_msum;
-}t_ping;
+	int					errors;
 
-extern t_ping	g_ping;
+	t_flag				flag;
+}	t_ping;
 
-void			ft_exit(char *str_err);
-void			ft_exit_add_info(char *str_info, \
-									char *str_err);
-void			init_ping(void);
-void			parse(int argc, \
-						char **argv);
-void			create_socket(void);
-void			tv_sub(struct timeval *out, \
-						struct timeval *in);
-void			sig_alrm(int signo);
-void			readloop(void);
-void			proc_v4(char *ptr, \
-						ssize_t len, \
-						struct timeval *tvrecv);
-void			send_v4(void);
+extern t_ping		g_ping;
+
+void	parse(int argc, char **argv);
+void	create_socket();
+void	send_v4(void);
+void	readloop(void);
+void	proc_v4(char *ptr, ssize_t len, struct timeval *tvrecv);
+
+void	ft_exit(char *str_err);
+void	ft_exit_add_info(char *str_info, char *str_err);
 
 #endif

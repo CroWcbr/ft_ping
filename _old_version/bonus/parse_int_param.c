@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 22:14:48 by cdarrell          #+#    #+#             */
-/*   Updated: 2023/01/07 02:22:05 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/07/20 19:51:50 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ size_t	find_int(char *opt, char **argv, int *i, int *j)
 	{
 		(*i)++;
 		*j = 0;
+		if (!argv[*i])
+			ft_exit_parse_add_param(opt[jj], "no data");
 		tmp = find_digit(argv[*i], j, -1, opt[jj]);
 	}
 	(*j)--;

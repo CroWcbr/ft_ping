@@ -5,12 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 17:40:57 by cdarrell          #+#    #+#             */
-/*   Updated: 2023/06/22 21:36:10 by cdarrell         ###   ########.fr       */
+/*   Created: 2023/07/20 17:33:01 by cdarrell          #+#    #+#             */
+/*   Updated: 2023/07/20 17:57:17 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "./libft/include/libft.h"
 #include "ft_ping.h"
+#include <errno.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <netinet/ip_icmp.h>
 
 uint16_t	in_cksum(uint16_t *addr, int len)
 {
@@ -42,7 +47,7 @@ uint16_t	in_cksum(uint16_t *addr, int len)
 void	send_v4(void)
 {
 	static int		nsent;
-	static char		sendbuf[BUFSIZE];
+	static char			sendbuf[1500]; //!!!!!!
 	int				len;
 	struct icmp		*icmp;
 
@@ -50,8 +55,8 @@ void	send_v4(void)
 	icmp->icmp_type = ICMP_ECHO;
 	icmp->icmp_code = 0;
 	icmp->icmp_id = g_ping.pid;
-	icmp->icmp_seq = nsent++;
-	memset(icmp->icmp_data, 0xa5, g_ping.datalen);
+	icmp->icmp_seq = ++nsent;
+	ft_memset(icmp->icmp_data, 0xa5, g_ping.datalen);
 	gettimeofday((struct timeval *)icmp->icmp_data, NULL);
 	len = 8 + g_ping.datalen;
 	icmp->icmp_cksum = 0;
