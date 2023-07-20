@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 17:46:33 by cdarrell          #+#    #+#             */
-/*   Updated: 2023/07/20 19:40:21 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/07/20 20:26:10 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	print_v4(struct icmp *icmp, struct ip *ip, double rtt, int icmplen)
 	if (g_ping.flag.timestamps)
 	{
 		gettimeofday(&end, NULL);
-		printf("[%f] \n", end.tv_sec + end.tv_usec / 1000000.0);
+		printf("[%f] ", end.tv_sec + end.tv_usec / 1000000.0);
 	}
 	tmp_addr = (struct sockaddr_in *) g_ping.sarecv;
 	if (inet_ntop(AF_INET, &tmp_addr->sin_addr, str, sizeof(str)) == NULL)
@@ -81,10 +81,16 @@ static void	print_verbose(struct icmp *icmp, int icmplen)
 	char				str[128];
 	char				str_dns[128];
 	struct sockaddr_in	*tmp_addr;
+	struct timeval		end;
 
-	tmp_addr = (struct sockaddr_in *) g_ping.sarecv;
-	if (inet_ntop(AF_INET, &tmp_addr->sin_addr, str, sizeof(str)) == NULL)
-		printf("ERROR! inet_ntop");
+	g_ping.errors++;
+	if (g_ping.flag.quiet)
+		return ;
+	if (g_ping.flag.timestamps)
+	{
+		gettimeofday(&end, NULL);
+		printf("[%f] ", end.tv_sec + end.tv_usec / 1000000.0);
+	}
 
 	// struct sockaddr *address = (struct sockaddr *)(icmp + 1);
 	// socklen_t address_length = sizeof(struct sockaddr);
@@ -94,14 +100,16 @@ static void	print_verbose(struct icmp *icmp, int icmplen)
 	// 	ft_exit_add_info(g_ping.destination_ip, (char *)gai_strerror(gai_err));
 	// }
 
-	printf(" %d bytes from %s: type = %d, code = %d\n", \
-		icmplen, str_dns, icmp->icmp_type, icmp->icmp_code);
+	tmp_addr = (struct sockaddr_in *) g_ping.sarecv;
+	if (inet_ntop(AF_INET, &tmp_addr->sin_addr, str, sizeof(str)) == NULL)
+		printf("ERROR! inet_ntop");
 
-	int					delta_for_seq = 28;
-	uint16_t* icmp_seq_ptr = (uint16_t*)((char*)&(icmp->icmp_seq) + delta_for_seq);
-	printf("\t%d\n", icmplen);
-
-	g_ping.errors++;
+	printf("From ");
+	if (!g_ping.flag.no_dns_name)
+		printf("XXXXXX (XXXXXXX)");
+	else
+		printf("XXXXXXX");
+	printf(" icmp_seq=%d type=%d code=%d\n", *(uint16_t*)((char*)&(icmp->icmp_seq) + 28), icmp->icmp_type, icmp->icmp_code);
 }
 
 void	proc_v4(char *ptr, ssize_t len, struct timeval *tvrecv)
@@ -129,6 +137,7 @@ void	proc_v4(char *ptr, ssize_t len, struct timeval *tvrecv)
 	}
 	else if (g_ping.flag.verbose)
 	{
+		
 		print_verbose(icmp, icmplen);
 	}
 

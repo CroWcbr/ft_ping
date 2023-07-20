@@ -28,7 +28,6 @@ my own ping
 ## ICMP-Header:
 All ICMP packets have an 8-byte header and variable-sized data section. The first 4 bytes of the header have fixed format, while the last 4 bytes depend on the type/code of that ICMP packe
 
-
 ## Test
 - blocks outgoing ICMP packets : sudo iptables -A OUTPUT -p icmp -j DROP
 - allow sending ICMP packets   : sudo iptables -D OUTPUT -p icmp -j DROP
