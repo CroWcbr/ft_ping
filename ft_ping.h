@@ -6,16 +6,14 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 01:49:45 by cdarrell          #+#    #+#             */
-/*   Updated: 2023/07/20 18:30:16 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/07/22 19:19:58 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PING_H
 # define FT_PING_H
 
-# define DEBUG 1
-
-// # include "./libft/include/libft.h"
+# define DEBUG 0
 
 #include <stdbool.h>	// for bool
 #include <stddef.h>		// for size_t

@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 15:30:19 by cdarrell          #+#    #+#             */
-/*   Updated: 2023/07/20 18:35:24 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/07/22 19:19:40 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	print_socket()
 {
 	printf("---------------SOCKET-------------------\n");
 	printf("destination_ip    = \t%s\n", g_ping.destination_ip);
+	printf("destination_dns    = \t%s\n", g_ping.destination_dns);
 	printf("-----------------------------------------\n");
 }
 
