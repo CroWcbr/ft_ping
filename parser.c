@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 01:52:16 by cdarrell          #+#    #+#             */
-/*   Updated: 2023/07/20 18:56:00 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/07/20 20:28:17 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	ft_exit_error(char *first_arg, ...)
 
 static size_t	find_int(char *opt, char flag)
 {
-	for (int i = 0; i < ft_strlen(opt); ++i)
+	for (size_t i = 0; i < ft_strlen(opt); ++i)
 	{
 		if (!ft_isdigit(opt[i]))
 		{
@@ -86,7 +86,7 @@ static size_t	find_int(char *opt, char flag)
 	char*	max_numeric = "9223372036854775807";
 	if (ft_strlen(opt) >= ft_strlen(max_numeric))
 	{
-		for (int i = 0; i < ft_strlen(opt); ++i)
+		for (size_t i = 0; i < ft_strlen(opt); ++i)
 		{
 			if (opt[i] > max_numeric[i])
 			{
@@ -96,7 +96,7 @@ static size_t	find_int(char *opt, char flag)
 	}
 
 	size_t	tmp = 0;
-	for (int i = 0; i < ft_strlen(opt); ++i)
+	for (size_t i = 0; i < ft_strlen(opt); ++i)
 	{
 		tmp = tmp * 10 + opt[i] - '0';
 	}
@@ -119,7 +119,7 @@ static size_t	find_int(char *opt, char flag)
 
 static double	find_double(char *opt, char flag)
 {
-	for (int i = 0, point = 0; i < ft_strlen(opt); ++i)
+	for (size_t i = 0, point = 0; i < ft_strlen(opt); ++i)
 	{
 		if (opt[i] == '.')
 		{
@@ -133,7 +133,7 @@ static double	find_double(char *opt, char flag)
 
 	double	tmp = 0;
 	double	decimal = 0.1;
-	for (int i = 0, point = 0; i < ft_strlen(opt); ++i)
+	for (size_t i = 0, point = 0; i < ft_strlen(opt); ++i)
 	{
 		if(opt[i] == '.')
 			point++;
@@ -183,7 +183,7 @@ void	parse(int argc, char **argv)
 	{
 		if (argv[i][0] == '-' && argv[i][1] != '\0')
 		{
-			int j = 1;
+			size_t j = 1;
 
 			while (j < ft_strlen(argv[i]))
 			{

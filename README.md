@@ -1,7 +1,7 @@
 # ft_ping
 my own ping
 
-#Changes
+## Changes
 - more simple code
 - no norminette
 - add flag 't'

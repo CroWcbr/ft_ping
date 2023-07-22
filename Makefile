@@ -1,7 +1,7 @@
 NAME		=	ft_ping
 
 CC			=	gcc
-# FLAGS		=	-Wall -Wextra -Werror
+FLAGS		=	-Wall -Wextra -Werror
 
 LIBFT_DIR	=	./libft
 LIBFT_LIB	=	libft.a

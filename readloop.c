@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:35:07 by cdarrell          #+#    #+#             */
-/*   Updated: 2023/07/20 17:55:07 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/07/22 03:09:12 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	readloop(void)
 	char			controlbuf[1500];
 	struct msghdr	msg;
 	struct iovec	iov;
-	size_t			n;
+	int				n;
 	struct timeval	tval;
 
 	iov.iov_base = recvbuf;

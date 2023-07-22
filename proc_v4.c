@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 17:46:33 by cdarrell          #+#    #+#             */
-/*   Updated: 2023/07/20 20:26:10 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/07/22 03:07:22 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ static void	print_verbose(struct icmp *icmp, int icmplen)
 	struct sockaddr_in	*tmp_addr;
 	struct timeval		end;
 
+	(void)icmplen;
+
+	
 	g_ping.errors++;
 	if (g_ping.flag.quiet)
 		return ;
@@ -92,6 +95,10 @@ static void	print_verbose(struct icmp *icmp, int icmplen)
 		printf("[%f] ", end.tv_sec + end.tv_usec / 1000000.0);
 	}
 
+	if (getnameinfo(g_ping.sarecv, g_ping.salen, str_dns, sizeof(str_dns),
+					NULL, 0, 0) == 0)
+					;
+		printf("1 %s\n", str_dns);
 	// struct sockaddr *address = (struct sockaddr *)(icmp + 1);
 	// socklen_t address_length = sizeof(struct sockaddr);
 	// int	gai_err;
@@ -103,14 +110,55 @@ static void	print_verbose(struct icmp *icmp, int icmplen)
 	tmp_addr = (struct sockaddr_in *) g_ping.sarecv;
 	if (inet_ntop(AF_INET, &tmp_addr->sin_addr, str, sizeof(str)) == NULL)
 		printf("ERROR! inet_ntop");
-
+printf("2 %s\n", str);
 	printf("From ");
 	if (!g_ping.flag.no_dns_name)
 		printf("XXXXXX (XXXXXXX)");
 	else
 		printf("XXXXXXX");
 	printf(" icmp_seq=%d type=%d code=%d\n", *(uint16_t*)((char*)&(icmp->icmp_seq) + 28), icmp->icmp_type, icmp->icmp_code);
+
+
+// // for (int i = 0; i < 60; i++)
+// // {
+// 		char dns_name[256];
+// 		struct sockaddr *address = (struct sockaddr *)(icmp + 1);
+// getnameinfo(address, sizeof(struct sockaddr), dns_name, NI_MAXHOST, NULL, 0, NI_NAMEREQD);
+
+// struct sockaddr_in *ipv4 = (struct sockaddr_in *)&address;
+// char ip[256];
+//  inet_ntop(AF_INET, &(ipv4->sin_addr), ip, INET_ADDRSTRLEN);
+// printf("\t\t%d\t%s\t%s\n", 1, dns_name, ip);
+// 		// extract_dns_name(msg, 12, dns_name);
+// 		// printf("Имя DNS-ответа: %s\n", dns_name);
+// // }
+
 }
+
+void extract_dns_name(unsigned char* dns_message, int position, char* dns_name) {
+    int i, j = 0, k;
+
+    // Читаем каждый сегмент имени (метку)
+    while (dns_message[position] != 0) {
+        // Если первый двоичный флаг имеет значение 11, то это сжатое имя
+        if ((dns_message[position] & 0xC0) == 0xC0) {
+            position = dns_message[position + 1];
+        } else {
+            // Иначе читаем метку (сегмент имени)
+            k = dns_message[position];
+            position++;
+            for (i = 0; i < k; i++) {
+                dns_name[j] = dns_message[position];
+                j++;
+                position++;
+            }
+            dns_name[j] = '.';
+            j++;
+        }
+    }
+    dns_name[j - 1] = '\0'; // Завершаем строку
+}
+
 
 void	proc_v4(char *ptr, ssize_t len, struct timeval *tvrecv)
 {
@@ -137,7 +185,6 @@ void	proc_v4(char *ptr, ssize_t len, struct timeval *tvrecv)
 	}
 	else if (g_ping.flag.verbose)
 	{
-		
 		print_verbose(icmp, icmplen);
 	}
 
