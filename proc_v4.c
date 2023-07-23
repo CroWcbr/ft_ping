@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 17:46:33 by cdarrell          #+#    #+#             */
-/*   Updated: 2023/07/22 19:27:51 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/07/23 18:50:42 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ void	proc_v4(char *ptr, ssize_t len, struct timeval *tvrecv)
 	{
 		if (*(uint16_t*)((char*)&(icmp->icmp_id) + 28) != g_ping.pid)
 			return ;
+		g_ping.count_recv++;
 		print_verbose(icmp, icmplen);
 	}
 
