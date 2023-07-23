@@ -6,7 +6,7 @@
 /*   By: cdarrell <cdarrell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 01:50:38 by cdarrell          #+#    #+#             */
-/*   Updated: 2023/07/20 18:32:24 by cdarrell         ###   ########.fr       */
+/*   Updated: 2023/07/23 14:22:47 by cdarrell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,6 @@ static void	sigint_quit(int signo)
 			g_ping.rtt_min, g_ping.rtt_sum / g_ping.count_recv, \
 			g_ping.rtt_max, g_ping.rtt_msum / g_ping.count_recv);
 	printf("\n");
-	freeaddrinfo(g_ping.ai);
-	free(g_ping.sarecv);
-	exit(0);
 }
 
 int	main(int argc, char **argv)
